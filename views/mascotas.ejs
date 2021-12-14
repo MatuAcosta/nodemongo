@@ -1,6 +1,6 @@
 <%- include("template/cabecera",{tituloweb:"pagina de inicio"}) %>
-
     <div class="container">
+      <a  href = "/mascotas/crear" class="btn btn-success">Crear</a>
         <table class="table">
             <thead>
               <tr>
@@ -17,7 +17,8 @@
                             <th scope="row">    <%= m.id %></th>
                             <td><%= m.nombre %> </td>
                             <td><%= m.descripcion %> </td>
-                            <td>@mdo</td>
+                            <td><a href="/mascotas/<%= m.id %>" type="button" class="btn btn-primary" data-id="<%= m.id %>">Editar</a>
+                            </td>
                           </tr>
                     <% }) %>            
                 <% } %>

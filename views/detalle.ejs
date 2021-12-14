@@ -1,0 +1,66 @@
+<%- include("template/cabecera",{tituloweb:"detalle mascota"}) %>
+    <div class="container">
+        <h1>Detalle Mascota</h1>
+        <% if (error) { %>
+            <p><%= mensaje %></p>
+            <a href="/mascotas" class="btn btn-danger">volver</a>
+        <% } %>
+        <% if (!error) { %>
+          <form id="editar" data-id="<%= mascota.id %>">
+            <input type="text" value="<%= mascota.nombre %>"class="form-control my-2" name="nombre">
+            <input type="text" value="<%= mascota.descripcion %>"class="form-control my-2"name="descripcion">
+            <button
+              class="btn btn-warning"
+              type="submit"
+            >
+              Editar
+          </button>
+      </form>
+      <hr>
+      <button id="eliminar" type="button" class="btn btn-primary" data-id="<%= mascota.id %>">Eliminar</button>
+         
+        <% } %>
+    </div>
+    <script>
+        const $eliminar = document.querySelector('#eliminar');
+        const $editar = document.getElementById('editar')
+        document.addEventListener('submit', async e =>{
+          e.preventDefault()
+          if(e.target === $editar) { 
+            try {
+              console.log($editar.nombre)
+              let nombre = $editar.nombre.value
+              let descripcion = $editar.descripcion.value
+              const data = await fetch(`/mascotas/${$editar.dataset.id}`, {
+                method: 'PUT',
+                headers: {
+                            'Content-Type': 'application/json'
+                          },
+                body: JSON.stringify({nombre,descripcion})
+              })
+              const json = await data.json();
+              if(json.estado) { 
+                window.location.href = '/mascotas'
+              }
+
+            } catch (error) {
+              console.log(error)
+            }
+          }
+        })
+        document.addEventListener('click', async e =>{
+          if(e.target===$eliminar){
+          try {
+              const data = await fetch (`/mascotas/${$eliminar.dataset.id}`,{method: 'DELETE'})
+              if (!data.ok) throw {error}
+              const json = await data.json()
+                if(json.estado){
+                    window.location.href = '/mascotas'
+                }
+            } catch (error) {
+              console.log(error)
+            }
+        }
+        })
+      </script>
+<%- include("template/footer") %>

@@ -1,5 +1,14 @@
 const express = require ('express');
+//bp es para la lectura de formularios
+const bodyParser = require ('body-parser');
 const app = express()
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
+
 
 //dotenv para poder ocultar variables de entorno
 require('dotenv').config()
