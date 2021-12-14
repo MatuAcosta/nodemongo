@@ -12,6 +12,7 @@ const mongoose = require('mongoose');
 /*const user = 'usuario2';
 const password = 'olakase123';
 const dbname = 'veterinaria'*/
+
 // url de conexion
 const uri = `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@cluster0.6ce2y.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`; 
 
